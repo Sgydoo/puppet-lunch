@@ -271,7 +271,8 @@ Notice: Removing file Puppet::SSL::CertificateRequest cpcontrol at
 '/etc/puppetlabs/puppet/ssl/ca/requests/cpcontrol.pem'
 {% endhighlight %}
 
-Again on the master, add an 'allow' line to the relevant ACL:
+Again on the master, add an 'allow' line to the relevant ACL in
+Puppet's $confdir/auth.conf file:
 
 {% highlight text %}
 path /certificate_status
