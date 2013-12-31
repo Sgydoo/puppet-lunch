@@ -1,0 +1,11 @@
+title:        Puppet Lunch
+tagline:      ""
+url:          http://puppetlunch.com
+author:
+  name:       "Simon Young"
+  email:      "simon@puppetlunch.com"
+markdown:     rdiscount
+permalink:    none
+pygments:     true
+paginate:     5
+baseurl:      /test-book4
