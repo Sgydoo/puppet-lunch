@@ -265,6 +265,7 @@ a:hover {
 
 /* Tables */
 table {
+  margin-left: 3px;
   border-collapse:collapse;
 }
 th {
