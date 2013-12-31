@@ -8,3 +8,4 @@ markdown:     rdiscount
 permalink:    none
 pygments:     true
 paginate:     5
+baseurl:      ""
