@@ -329,6 +329,10 @@ Once the network is all configured, it makes sense to reboot before
 going any further. To do this, we call 'puppet node_vmware stop' and
 then 'puppet node_vmware start'.
 
+When the node comes back up and the Puppet agent is running, it will
+immediately contact the puppet master, collect a catalog and start
+making the requested changes to the system.
+
 ## Automatic Implementation
 
 I've written a bash shell script which ties all this together in a
