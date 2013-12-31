@@ -17,65 +17,59 @@ terminology for this host is the "CP control node".
 
 ## Auto-provisioning - Fundamental Problems
 
-Auto-provisioning presents many questions which must be answered
-before we can proceed. There are also a few different ways we can
-answer these questions. We'll try and summarise the main issues in the
-following table.
+The subject of auto-provisioning raises some questions which must be
+answered before we can proceed. There are also a few different ways we
+can answer these questions. We'll try and summarise the main issues in
+the following table.
 
-<table>
-<tr><th>Question</th><th>Alternative Solution (if available)</th><th>Our Solution</th><th>Command</th></tr>
-<tr>
-<td>Clone an image, or install the OS from scratch?</td>
+#### Q: Do we clone an existing VM image, or install the OS from scratch?
 
-<td>To automatically install from scratch requires the use of DHCP and
+To automatically install from scratch requires the use of DHCP and
 PXE, with new nodes downloading a microkernel, then running a custom
 unattended installation procedure using a downloaded OS installation
 ISO image. It's a rather involved process, but it's the only one which
-works for new physical machines.</td>
+works for new *physical* machines.
 
-<td>VMware provides 'templates' which are essentially machine
-images.</td>
+A: We will use VMware 'templates', which are essentially virtual
+machine images, ready-installed with a basic version of our chosen OS.
 
-<td>puppet node_vmware create</td>
+Cloud Provisioner command: puppet node_vmware create
 
-</tr>
-<tr>
+#### Q: How do we determine the IP address of the new node?
 
-<td>How to install the Puppet Agent with the correct certificate
-name?</td>
+If using DHCP, this can be obtained by parsing the output of 'puppet
+node_vmware find'.
 
-<td>No alternative available.</td>
+Alternatively, all newly-provisioned nodes could be initiated with a
+known statis IP address. We will take this approach, but only because
+it's the easiest thing to do in our environment.
 
-<td>
-<p>If the IP address of the new host is known (which can be obtained
-   by parsing the output of 'puppet node_vmware find'), then we can
-   install the agent across the network using 'puppet node
-   install'.</p>
+#### Q: How do we ensure the Puppet Agent is configured with the correct certificate name?
 
-<p>Appropriate SSH keys must already exist on the new node to allow
-   access from the Cloud Provisioner host.</p>
-</td>
+Once the IP address of the new node is known, we can install the agent
+across the network using 'puppet node install', providing the agent
+certificate name with the --certname option.
 
-<td>puppet node install</td>
+SSH must be configured appropriately on the new node to allow access
+from the Cloud Provisioner host, so this must be a property of the
+VMware template we're using.
 
-</tr>
-<tr>
+Cloud Provisioner command: puppet node install
 
-<td>How to automatically configure the network?</td>
+#### Q: How do we automatically configure the network?
 
-<td>Puppet can manage the IP address of a host, but ideally the
-interface must be configured before any other network-dependent
-services are installed. There may be a way to specify this dependency
-in Puppet, but I haven't found this yet.</td>
+Puppet can manage the IP address of a host, but ideally the interface
+must be configured before any other network-dependent services are
+installed. There may be a way to specify this dependency in Puppet,
+but I haven't found this yet.
 
-<td>Best solution so far is to manipulate the network configuration
-files directly using sed. It's not ideal, and it's not elegant, but it
-will work - and it solves the dependency problem.</td>
+The easiest solution we've found so far is to manipulate the network
+configuration files directly using sed, then rebooting the new VM
+before the puppet agent starts to configure the machine. It's not
+ideal, and it's not elegant, but it will work - and it solves the
+dependency problem.
 
-<td>Custom script</td>
-
-</tr>
-</table>
+This will require a custom script (more on this script later).
 
 ## Pre-requisites
 
@@ -83,14 +77,15 @@ will work - and it solves the dependency problem.</td>
 
 We'll be using a basic CentOS 6 VMware template, which needs a bit of preparation. Namely:
 
-* The SSH public key of the Cloud Provisioner host's root account installed in /root/.ssh/authorized_keys
+* The SSH public key of the Cloud Provisioner host's root account listed in /root/.ssh/authorized_keys
 * VMware-tools installed
-* A known static IP address configured
+* A known static IP address configured \*
 * No entries in /etc/udev/rules.d/70-persistent-net.rules
 * Appropriate entries in /etc/resolv.conf
 * NetworkManager disabled
 
-Of course it's also possible to use DHCP rather than a pre-determined IP address.
+\* Of course it's also possible to use DHCP rather than a pre-determined
+IP address, as mentioned previously.
 
 ### Credentials for the VMware Cluster
 
@@ -107,8 +102,11 @@ added to the root user's ~/.fog file, which looks like this:
   :vsphere_expected_pubkey_hash: 177bf9cc5a80b7bf74d301ec6a7d51d5...
 {% endhighlight %}
 
-Note we have to specify the Windows domain name in the username field. The hash is returned by vCenter and
-allows us to confirm that we're talking to the right host.
+Note we have to specify the Windows domain name in the username field.
+This was not mentioned in any of the official documentation.
+
+The vsphere_expected_pubkey_hash is returned by vCenter and allows us
+to confirm that we're talking to the correct host.
 
 ## Method
 
@@ -131,7 +129,6 @@ The script will perform the following actions:
     * Check that nothing responds to the temporary provisioning IP address.
     * Check that nothing responds to the target IP address.
     * Check whether an agent certificate for the new host already exists (it shouldn't).
-
 2. Clone the specified template and wait for the new VM to boot.
 3. Install puppet agent, which will automatically send a certificate signing request to the master.
 4. Sign the certificate for the new node.
