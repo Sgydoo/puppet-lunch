@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title:  "Appendix B - Dynamic Environments"
 date:   2013-12-27 22:04:00
 categories: puppet

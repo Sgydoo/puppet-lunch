@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title:  "Chapter 2 - Puppet Enterprise Installation"
 date:   2013-12-27 16:24:00
 categories: puppet

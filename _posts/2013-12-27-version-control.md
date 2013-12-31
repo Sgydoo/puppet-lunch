@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title:  "Chapter 5 - Controlling Puppet Configuration With Git"
 date:   2013-12-27 19:55:00
 categories: puppet

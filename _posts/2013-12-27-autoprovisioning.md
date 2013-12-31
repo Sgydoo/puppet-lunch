@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title:  "Chapter 4 - Auto-provisioning With Cloud Provisioner"
 date:   2013-12-27 18:21:00
 categories: puppet

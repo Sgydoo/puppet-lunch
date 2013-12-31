@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title:  "Appendix D - Perl SDK for VMware vSphere"
 date:   2013-12-27 22:56:00
 categories: puppet

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title:  "Appendix A - Custom Facts"
 date:   2013-12-27 21:49:00
 categories: puppet

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: page
 title:  "Appendix C - Node Classification: Roles & Profiles"
 date:   2013-12-27 23:24:00
 categories: puppet
