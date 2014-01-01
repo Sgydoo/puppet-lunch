@@ -79,11 +79,10 @@ a "temporary" environment (e.g. sytest1).
 These are the traditional, usually permanent environments like
 Development, QA, Staging or Production.
 
-To keep things as simple as possible, we'll start out with two basic
-models: 'prod' and 'non-prod'.
-
-We'll define these in Hiera and classify nodes using a custom fact
-(provisionally called $::model_environment). So our role-based Hiera
+To keep things as simple as possible, we'll start out with two
+basic models: 'prod' and 'non-prod', and we'll define these in
+Hiera and classify nodes using a custom fact (provisionally
+called $::model_environment). So our role-based Hiera
 configuration would become:
 
 {% highlight yaml %}
@@ -119,7 +118,8 @@ all. They could easily last for months or years, or be permanent
 fixtures. That's one of the reasons creating environments from Git
 branches is so flexible.
 
-Clearly, Hiera needs to be aware of both types of environment. Let's tie them together...
+Clearly, Hiera needs to be aware of both types of environment. Let's
+tie them together...
 
 ### Hiera Configuration
 
@@ -148,9 +148,11 @@ But what about modules? Some of these are developed in-house and
 stored in a Git repository, while others come from the outside world
 via Puppet Forge, so they would have to live in separate directories.
 
-To make things even more interesting, we may want to use different Forge modules in different environments. For
-example, if we decided we wanted to switch to a different apache module, but needed to test everything safely first.
-And of course we would also like to implement Dynamic Environments in Puppet. So our requirements become:
+To make things even more interesting, we may want to use different
+Forge modules in different environments. For example, if we decided we
+wanted to switch to a different apache module, but needed to test
+everything safely first. And of course we would also like to implement
+Dynamic Environments in Puppet. So our requirements become:
 
 1. Configure Puppet for dynamic environments.
 2. Keep our locally-developed modules separate from Puppet Forge
