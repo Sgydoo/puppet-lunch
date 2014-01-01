@@ -16,10 +16,12 @@ as possible.
 
 ## The Platform
 
-As mentioned in the previous planning section, there will eventually
-be two Puppet Enterprise installations; one for Production and one for
-Non-Production. We'll be starting by installing the Non-Production
-(NP) platform, and host names will be suffixed with "-np".
+As mentioned in the previous <a
+href="{{ site.baseurl }}/puppet/planning.html">planning section</a>,
+there will eventually be two Puppet Enterprise installations; one for
+Production and one for Non-Production. We'll be starting by
+installing the Non-Production (NP) platform, and host names will be
+suffixed with "-np".
 
 However the installation method will be the same for both platforms.
 

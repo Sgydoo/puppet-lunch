@@ -11,7 +11,7 @@ that this could become difficult to manage. For instance, it's not
 easy to determine which modules are required for a specific
 application platform, and we may find ourselves having to pick and
 choose modules every time a new host or environment is required. It
-would therefore be useful have a strategy for preventing long-term un-
+would therefore be useful have a strategy for preserving long-term
 manageability. Fortunately, the flexibility of Puppet allows us to
 address this without having to add extra functionality or software.
 
