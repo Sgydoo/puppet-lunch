@@ -356,9 +356,9 @@ File: /opt/puppet/var/lib/pgsql/9.2/data/pg_hba.conf
 #host all all 0.0.0.0/0 md5
 #
 # Edit: Only allow network access from PuppetDB, Master and Console
-host all all 10.20.1.162/32 md5
-host all all 10.20.1.163/32 md5
-host all all 10.20.1.164/32 md5
+host all all 10.40.3.162/32 md5
+host all all 10.40.3.163/32 md5
+host all all 10.40.3.164/32 md5
 {% endhighlight %}
 
 ## Next...

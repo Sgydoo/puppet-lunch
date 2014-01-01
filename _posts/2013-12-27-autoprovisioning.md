@@ -179,7 +179,7 @@ Booting (3/3): 100%
   instance_uuid: "500661dd-cc72-d00d-35fc-33f13e4b5615"
   hostname: autoprovisioner-np.puppetlunch.com
   operatingsystem: "CentOS 4/5/6 (64-bit)"
-  ipaddress: "10.20.1.167"
+  ipaddress: "10.40.3.167"
   power_state: poweredOn
   connection_state: connected
   hypervisor: hp1000-2.puppetlunch.com
@@ -207,7 +207,7 @@ This is the command we want to run to install the Puppet agent:
   --install-script=puppet-enterprise \
   --installer-payload=/path/to/puppet-enterprise-3.1.0-el-6-x86_64.tar.gz \
   --installer-answers=/path/to/answers_file \
-  --puppetagent-certname=autoprov-temp1.puppetlunch.com 10.20.1.167
+  --puppetagent-certname=autoprov-temp1.puppetlunch.com 10.40.3.167
 {% endhighlight %}
 
 Here's the output:
