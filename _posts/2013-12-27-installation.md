@@ -60,7 +60,7 @@ The PE servers will be VMware guests running CentOS 6. Here are the details:
 Note: Make sure that the system clocks are (roughly) in sync, and all
 host names are resolvable in DNS from each host before starting the
 installation, otherwise we may run into difficulties. See
-[the installation docs][b4-u-start] for more information.
+[the official installation docs][b4-u-start] for more information.
 
 Also ensure that the iptables firewall is disabled on each host before
 starting the installation.
