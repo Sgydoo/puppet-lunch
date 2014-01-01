@@ -17,15 +17,16 @@ whose article is widely referred to by many other blogs and fora
 (Adrien went on to develop r10k, an automated module deployment tool
 which supports dynamic environments).
 
-However, there's a problem with ridiculously powerful features - they
-give us too many options, especially if we start throwing other
-powerful features like Hiera into the mix. So now it's time to try and
-sift through the many possibilities and arrive at a simple, elegant
+However, ridiculously powerful features can be problematic - they give
+us too many options, especially if we start throwing other powerful
+features like Hiera into the mix. So now it's time to try and sift
+through the many possibilities and arrive at a simple, elegant
 solution...
 
 ## Discussion
 
-Going back to basics, these are the primary building blocks for a flexible Puppet installation:
+Going back to basics, these are the primary building blocks for a
+flexible Puppet installation:
 
 * Modules - for removing all site-specific config from the site manifest file. Two main types of module:
     * Puppet Forge modules
@@ -37,8 +38,9 @@ Going back to basics, these are the primary building blocks for a flexible Puppe
 * Puppet configuration in Version Control (e.g. Git) - for simplified audit, rollback and development.
 * Dynamic Environments - for development and safe experimentation.
 
-When considering Dynamic Environments, one problem that immediately presents itself is the fact that we've
-already defined our environment in Hiera's hierarchy, like this:
+When considering Dynamic Environments, one problem that immediately
+presents itself is the fact that we've already defined our environment
+in Hiera's hierarchy, like this:
 
 {% highlight yaml %}
 ---

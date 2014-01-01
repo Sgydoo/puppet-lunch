@@ -115,8 +115,8 @@ And that's it!
 
 ## Further Reading
 
-* [Custom Facts][custom-facts]
-* [Plugins in Modules][plugins-in-modules]
+* [Puppet Labs - Custom Facts][custom-facts]
+* [Puppet Labs - Plugins in Modules][plugins-in-modules]
 
 [custom-facts]: http://docs.puppetlabs.com/guides/custom_facts.html
 [plugins-in-modules]: http://docs.puppetlabs.com/guides/plugins_in_modules.html
