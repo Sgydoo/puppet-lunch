@@ -41,8 +41,8 @@ If using DHCP, this can be obtained by parsing the output of 'puppet
 node_vmware find'.
 
 Alternatively, all newly-provisioned nodes could be initiated with a
-known statis IP address. We will take this approach, but only because
-it's the easiest thing to do in our environment.
+known static IP address. We will take this approach, but only because
+it's the easiest thing to do in *our* environment.
 
 #### Q: How do we ensure the Puppet Agent is configured with the correct certificate name?
 
@@ -52,7 +52,7 @@ certificate name with the --certname option.
 
 SSH must be configured appropriately on the new node to allow access
 from the Cloud Provisioner host, so this must be a property of the
-VMware template we're using.
+VMware template we're using (more on this later).
 
 Cloud Provisioner command: puppet node install
 
@@ -102,7 +102,7 @@ added to the root user's ~/.fog file, which looks like this:
   :vsphere_expected_pubkey_hash: 177bf9cc5a80b7bf74d301ec6a7d51d5...
 {% endhighlight %}
 
-Note we have to specify the Windows domain name in the username field.
+Note: We have to specify the Windows domain name in the username field.
 This was not mentioned in any of the official documentation.
 
 The vsphere_expected_pubkey_hash is returned by vCenter and allows us
@@ -113,16 +113,17 @@ to confirm that we're talking to the correct host.
 Before creating a new VM, we'll need a corresponding Address record
 added to DNS. Once that's done, we can run the shell script which will
 be responsible for provisioning a new host. This complete method for
-provisioning a new machine looks like this:
+provisioning a new machine will only require two simple steps:
 
-* Create new DNS entries for the hosts to be provisioned.
-* Run the provisioning script once per node.
+1. Create new DNS entries for the hosts to be provisioned.
+2. Run the provisioning script once per node.
 
-The script will perform the following actions:
+The script we're going to write will do a lot of things for us. Here's
+what it has to do...
 
 1. Startup checks:
 
-    * Check the script is running as the correct user.
+    * Check we're running as the correct user.
     * Validate command line parameters.
     * Check the new host's DNS entry is in place (not strictly
       necessary, but it ensures this step is completed).
@@ -141,7 +142,8 @@ One the machine has rebooted, and assuming that the network
 reconfiguration was successful, the puppet agent should run and
 configure everything the way we want it.
 
-But first, we'll try and do all the steps manually to test the concept...
+But first, we'll run through all the steps manually to test the
+concept...
 
 ## Manual Implementation
 
