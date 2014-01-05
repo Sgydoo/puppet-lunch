@@ -265,7 +265,7 @@ More information r10k and the Puppetfile can be found [here][r10k].
 
 ## Workflow Diagram
 
-TODO: INSERT WORKFLOW DIAGRAM
+![Puppet Code Deployment Workflow](/public/images/workflow3.png)
 
 ## Further Reading
 

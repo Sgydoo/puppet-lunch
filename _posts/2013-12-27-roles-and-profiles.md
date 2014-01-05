@@ -233,7 +233,33 @@ pl_mounts:
 
 ## Visualisation
 
-TODO: INSERT VISUALISATION DIAGRAM
+This diagram shows the relationship between Modules, Roles and
+Profiles:
+
+![Modules, Roles and Profiles](/public/images/rolesandprofiles2.png)
+
+As illustrated, the 'dev-webapp1' Role is made up of three profiles:
+
+1. Profile: base
+
+The base profile configures the standard OS packages (ntp, selinux,
+motd etc.) by including the modules responsible for installing and
+configuring these packages.
+
+2. Profile: tomcat
+
+This profile includes the java, commons-daemon and tomcat modules
+- i.e. everything you need to run a tomcat server, in addition to
+the base OS.
+
+3. Profile: webapp1
+
+And this is our web application. In this case, there's a single module
+called 'webapp1' which takes care of installation and configuration of
+the application.
+
+Any confguration specific to the role is also included in the role's
+Hiera data.
 
 ## Summary
 
