@@ -64,7 +64,7 @@ possible environment. Before too long, Hiera's datadir would become
 unmaintainable.
 
 However, in our temporary test environments, we still want different
-server configurations for different real environm ents. For example,
+server configurations for different real environments. For example,
 say I want to create a new environment for testing, but I want the
 hosts to be configured in a Production-like way. My test environment
 could be called anything at all, but if I want the machines in this
