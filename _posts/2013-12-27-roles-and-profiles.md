@@ -23,7 +23,7 @@ groups are called 'Roles' and 'Profiles'. Together with 'Modules'
 these make up the building blocks of our application platforms. This
 is how they're related...
 
-### Modules
+### Puppet Modules
 
 A module is usually designed to manage one software component. For
 example, a 'tomcat' module may install tomcat and create the directory
@@ -100,6 +100,11 @@ profile class. For example:
 * profile::base
 * profile::webapp1
 
+
+Note: There's no need to create an init.pp for the profile module as
+      class { profile: } should never be called on its own.
+
+
 Here's an example of the 'tomcat' profile:
 
 {% highlight text %}
@@ -132,6 +137,13 @@ encapsulated in this simple logical structure. The goal is to be able
 to provision a server from scratch just by informing the puppet agent
 of the server's role.
 
+
+Note: A single node should only have *one* role. If you need to
+      create a multi-purpose host, you should define a profile
+      class for each function, then create a new role and include
+      the list of profiles.
+
+
 #### Implementation
 
 The role is defined via a custom facter fact called 'role'. This can
@@ -141,8 +153,51 @@ be found in /etc/puppetlabs/facter/facts.d/role.yaml. For example:
 role: webapp1-dev-webapp
 {% endhighlight %}
 
-Roles are then described in the Hiera configuration under the 'role' directory. Here's an example of the
-webapp1-dev-webapp role in datadir/role/webapp1-dev-webapp.yaml. Note that it simply includes the
+Roles are then described using a Hiera data source under the 'role'
+directory.
+
+To do this, we need to revise our Hiera hierarchy:
+
+{% highlight yaml %}
+---
+:backends:
+  - yaml
+:hierarchy:
+    - node/%{::fqdn}
+    - "%{::environment}/%{::role}"
+    - role/%{::role}
+    - "%{::environment}"
+    - global
+:yaml:
+  :datadir: /etc/puppetlabs/puppet/hiera
+{% endhighlight %}
+
+This Hiera configuration provides a huge amount of flexibility.
+In addition to our existing functionality, it allows:
+
+* The ability to define a role for each node.
+* The ability to vary a role definition on a per-environment basis.
+
+For example, if we create a new node called 'webserver1' with the role
+'web' and environment 'uat', Hiera will search for Puppet module
+parameters in the following files:
+
+1. /etc/puppetlabs/puppet/hiera/node/webserver1.yaml
+2. /etc/puppetlabs/puppet/hiera/uat/web.yaml
+3. /etc/puppetlabs/puppet/hiera/web.yaml
+4. /etc/puppetlabs/puppet/hiera/uat.yaml
+5. /etc/puppetlabs/puppet/hiera/global.yaml
+
+So that's:
+
+1. Specific config for this particular server
+2. Config for all UAT web servers
+3. Config for all web servers
+4. Config for all nodes in UAT
+5. Common config for all nodes
+
+Here's an example of the webapp1-dev-webapp role in
+datadir/role/webapp1-dev-webapp.yaml. Note that it simply includes the
 appropriate profiles, then adds some role-specific configuration:
 
 {% highlight text %}
