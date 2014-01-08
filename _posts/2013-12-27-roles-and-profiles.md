@@ -166,7 +166,7 @@ To do this, we need to revise our Hiera hierarchy:
     - node/%{::fqdn}
     - "%{::environment}/%{::role}"
     - role/%{::role}
-    - "%{::environment}"
+    - environment/%{::environment}
     - global
 :yaml:
   :datadir: /etc/puppetlabs/puppet/hiera
@@ -184,17 +184,17 @@ parameters in the following files:
 
 1. /etc/puppetlabs/puppet/hiera/node/webserver1.yaml
 2. /etc/puppetlabs/puppet/hiera/uat/web.yaml
-3. /etc/puppetlabs/puppet/hiera/web.yaml
-4. /etc/puppetlabs/puppet/hiera/uat.yaml
+3. /etc/puppetlabs/puppet/hiera/role/web.yaml
+4. /etc/puppetlabs/puppet/hiera/environment/uat.yaml
 5. /etc/puppetlabs/puppet/hiera/global.yaml
 
-So that's:
+So that's hierarchical configuration data for:
 
-1. Specific config for this particular server
-2. Config for all UAT web servers
-3. Config for all web servers
-4. Config for all nodes in UAT
-5. Common config for all nodes
+1. This particular node
+2. All UAT web servers
+3. All web servers
+4. All nodes in UAT
+5. All nodes
 
 Here's an example of the webapp1-dev-webapp role in
 datadir/role/webapp1-dev-webapp.yaml. Note that it simply includes the
@@ -226,12 +226,11 @@ pl_tomcat::catalina_base:
   webapp1-dev:
     basedir: /usr/local/tomcat-webapp1
     fileowner: webapp1
-    filegroup: stapdev
 
 #
 # Which version of the application to install
 #
-pl_webapp1::install::version: 9.3.2
+pl_webapp1::install::version: 6.3.0
 
 #
 # Which "target platform" identifier to put in /etc/pl.properties
@@ -239,12 +238,12 @@ pl_webapp1::install::version: 9.3.2
 pl_webapp1::target_platform: dev
 
 #
-# The tomcat http connector is listening on port 8082
+# The tomcat http connector is listening on port 8080
 #
 pl_firewall::pre:
   000_accept_http:
     proto: tcp
-    port: 8082
+    port: 8080
     action: accept
 
 #
@@ -258,32 +257,6 @@ pl_mounts:
     options: 'nfsvers=3,tcp,hard,bg,intr,rsize=32768,wsize=32768,timeo=600'
     atboot: true
     remounts: false
-  '/backup':
-    device: 'nfs1-d1:/vol/backup_tier3'
-    fstype: nfs
-    ensure: mounted
-    options: 'nfsvers=3,tcp,hard,bg,intr,rsize=32768,wsize=32768,timeo=600'
-    atboot: true
-    remounts: false
-  '/ejs_dev':
-    device: 'nfs1-d1:/vol/ejs_dev/ejs'
-    fstype: nfs
-    ensure: mounted
-    options: 'nfsvers=3,tcp,hard,bg,intr,rsize=32768,wsize=32768,timeo=600'
-    atboot: true
-    remounts: false
-    owner: eprod
-    group: plstaff
-    mode: 0777
-  '/pl':
-    device: 'nfs2-d1:/vol/pl_dev/pl_dev'
-    fstype: nfs
-    ensure: mounted
-    options: 'nfsvers=3,tcp,hard,bg,intr,rsize=32768,wsize=32768,timeo=600'
-    atboot: true
-    remounts: false
-    group: plstaff
-    mode: 2777
 {% endhighlight %}
 
 ## Visualisation
