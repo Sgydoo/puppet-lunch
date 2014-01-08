@@ -172,11 +172,11 @@ To do this, we need to revise our Hiera hierarchy:
   :datadir: /etc/puppetlabs/puppet/hiera
 {% endhighlight %}
 
-This Hiera configuration provides a huge amount of flexibility.
-In addition to our existing functionality, it allows:
+This Hiera configuration provides a *huge* amount of flexibility. In
+addition to our existing functionality, it allows us to:
 
-* The ability to define a role for each node.
-* The ability to vary a role definition on a per-environment basis.
+* Define a role for each node.
+* Override a role definition on a per-environment basis.
 
 For example, if we create a new node called 'webserver1' with the role
 'web' and environment 'uat', Hiera will search for Puppet module
