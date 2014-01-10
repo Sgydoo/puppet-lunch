@@ -339,7 +339,7 @@ making the requested changes to the system.
 
 I've written a bash shell script which ties all this together in a
 single command. The script is called 'hatch', and lives on the Puppet
-Console host. It's based on [a really useful script by Ger Apeldoorn][ger-script].
+Console host. It's inspired by [a really useful script by Ger Apeldoorn][ger-script].
 
 Another script called 'mkbrood' is capable of using the hatch script
 to provision multiple hosts according to instructions in a
