@@ -384,7 +384,7 @@ to be built. The script reads the file and runs 'hatch' for each node described.
 {% highlight text %}
 # mkbrood --help
 
-This is the 'mkbrood' multiple host provisioner. Version $VERSION
+This is the 'mkbrood' multiple host provisioner. Version 1.3
 
 mkbrood is a wrapper script for the 'hatch' auto-provisioning script.
 It allows a number of new nodes to be produced (hatched) at one time,
