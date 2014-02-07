@@ -199,13 +199,14 @@ marginally helpful.
 I eventually cobbled together a script to do what I wanted - namely,
 set the number of vCPUs and amount of system memory allocated to a VM
 - after trawling through the example scripts and utility modules. This
-script enables us to set the desired spec of the VM at provisioning
-time, and plugs neatly into the 'hatch' auto-provisioning script.
+'vmspec' script ([now available on GitHub][auto-scripts]) enables us
+to set the desired spec of the VM at provisioning time, and plugs
+neatly into the 'hatch' auto- provisioning script.
 
-It's easy when you know how! I'll make that script available as soon
-as possible.
+It's easy when you know how!
 
 
 [sdk-install]: http://pubs.vmware.com/vsphere-51/index.jsp?topic=%2Fcom.vmware.perlsdk.install.doc%2Fcli_install.3.5.html
 [sdk-download]: https://my.vmware.com/group/vmware/details?downloadGroup=VSP510-SDKPERL-510&productId=268
 [helpful-blog]: http://monitoringtt.blogspot.co.uk/2013/08/checkesx3checkvmwareapi-error-soap.html
+[auto-scripts]: https://github.com/Sgydoo/autoprovision
