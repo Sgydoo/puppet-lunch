@@ -345,13 +345,14 @@ Another script called 'mkbrood' is capable of using the hatch script
 to provision multiple hosts according to instructions in a
 configuration file (a bit like Amazon's Cloud Formation facility).
 
-I'm hoping both scripts will appear on GitHub soon! In the meantime,
-here's how to use them...
+Both scripts can be found on [GitHub][auto-scripts]!
+
+Now, here's how to use them...
 
 {% highlight text %}
 # hatch --help
 
-This is the 'hatch' auto-provisioning script. Version: 1.1
+This is the 'hatch' auto-provisioning script. Version: 2.1
 
 Script Actions:
   * Clone a VMWare template
@@ -360,17 +361,19 @@ Script Actions:
   * Reboot the machine
 
 Usage:
-  hatch -h hostname -r role [ -e environment ] [ -u ]
+  hatch -n hostname -r role [ -p puppet_environment ] [ -h hiera_environment ] [ -u ] [ -t template ] [ -C numCPUs ] [-M memory ]
   hatch --help
 
 Options:
-  -h     : Hostname of the new node
-  -r     : Server Role
-  -e     : Puppet Environment (Optional. Defaults to 'production')
-  -m     : Model Environment (used by Hiera. Also Optional. Defaults to 'prod')
-  -u     : Unattended. If set, the script will run without prompting
-  -c     : Number of virtual CPUs. This dictates which VMware template to use
-  --help : Print this message
+  -n      :  Hostname of the new node
+  -r      :  Server Role
+  -p      :  Puppet Environment (Optional. Defaults to 'production')
+  -h      :  Hiera Environment (Also optional. Defaults to 'prod')
+  -u      :  Unattended. If set, the script will run without prompting
+  -t      :  Template name. Optional. Defaults to 'centos6-static'
+  -C      :  Number of virtual CPUs. Optional (Passed to VMSPEC script)
+  -M      :  Amount of system memory, in MiB. Optional (Passed to VMSPEC script)
+  --help  :  Print this message
 {% endhighlight %}
 
 ### Provisioning Multiple Nodes
@@ -381,27 +384,28 @@ to be built. The script reads the file and runs 'hatch' for each node described.
 {% highlight text %}
 # mkbrood --help
 
-This is the 'mkbrood' multiple host provisioner. Version 1.1
+This is the 'mkbrood' multiple host provisioner. Version $VERSION
 
 mkbrood is a wrapper script for the 'hatch' auto-provisioning script.
 It allows a number of new nodes to be produced (hatched) at one time,
 which is useful when provisioning a complete application platform.
 
-The mkbrood script expects to find its configuration files here:
-/etc/mkbrood/<puppet_environment>.yaml
+The brood script expects to find its configuration files here:
+ /etc/mkbrood/<platform>.yaml
 
-A sample configuration file can be found here:
-/etc/mkbrood/sample.yaml
-
-mkbrood depends on the 'hatch' script, which it expects to find here:
-/usr/local/bin/hatch
+It relies on the 'hatch' script, which it expects to find here:
+ /usr/local/bin/hatch
 
 Logs are written to:
-/var/log/mkbrood/<puppet_environment>.log
+ /var/log/mkbrood/<platform>.log
 
 Usage:
-  mkbrood <puppet_environment>
-  mkbrood --help
+
+ mkbrood <platform>
+ mkbrood --help
+
+Note that any environments referred to in the configuration must exist
+in the puppet configuration *before* running this script.
 {% endhighlight %}
 
 Note that a valid environment with the same name must exist in the
@@ -429,3 +433,4 @@ node2:
 [http-access-control]: http://docs.puppetlabs.com/guides/rest_auth_conf.html
 [cert-signing-issues]: http://docs.puppetlabs.com/pe/latest/trouble_cloudprovisioner.html#certificate-signing-issues
 [ger-script]: http://puppetspecialist.nl/2012/12/single-command-server-deployment/
+[auto-scripts]: https://github.com/Sgydoo/autoprovision
