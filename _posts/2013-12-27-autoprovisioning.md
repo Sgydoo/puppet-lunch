@@ -417,11 +417,13 @@ A typical platform configuration file might look like this:
 ---
 model_environment: non-prod
 node1:
-  hostname: autoprov-temp1.puppetlunch.com
-  role: web
+  hostname: sarah.puppetlunch.com
+  role: nginx-loadbalancer
 node2:
-  hostname: autoprov-temp2.puppetlunch.com
+  hostname: duck.puppetlunch.com
   role: tomcat
+  cpus: 2
+  memory: 2048
 {% endhighlight %}
 
 ## Next...
