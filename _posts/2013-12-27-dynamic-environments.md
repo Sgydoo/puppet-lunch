@@ -44,16 +44,16 @@ in Hiera's hierarchy, like this:
 
 {% highlight yaml %}
 ---
-:backends:
-- yaml
-:hierarchy:
-- node/%{::fqdn}
-- "%{::environment}/%{::role}"
-- role/%{::role}
-- "%{::environment}"
-- global
-:yaml:
-:datadir: /etc/puppetlabs/puppet/hiera
+backends:
+  - yaml
+hierarchy:
+  - node/%{::fqdn}
+  - "%{::environment}/%{::role}"
+  - role/%{::role}
+  - "%{::environment}"
+  - global
+yaml:
+  datadir: /etc/puppetlabs/puppet/hiera
 {% endhighlight %}
 
 So Hiera was already providing a flexible mechanism for classifying
@@ -87,16 +87,16 @@ configuration would become:
 
 {% highlight yaml %}
 ---
-:backends:
-- yaml
-:hierarchy:
-- node/%{::fqdn}
-- "%{::model_environment}/%{::role}"
-- role/%{::role}
-- "%{::model_environment}"
-- global
-:yaml:
-:datadir: /etc/puppetlabs/puppet/hiera
+backends:
+  - yaml
+hierarchy:
+  - node/%{::fqdn}
+  - "%{::model_environment}/%{::role}"
+  - role/%{::role}
+  - "%{::model_environment}"
+  - global
+yaml:
+  datadir: /etc/puppetlabs/puppet/hiera
 {% endhighlight %}
 
 OK. It's starting to look good, but what about that datadir? If it's a
@@ -127,16 +127,16 @@ To do this, Hiera's datadir must now be *dynamically* defined:
 
 {% highlight yaml %}
 ---
-:backends:
-- yaml
-:hierarchy:
-- node/%{::fqdn}
-- "%{::model_environment}/%{::role}"
-- role/%{::role}
-- "%{::model_environment}"
-- global
-:yaml:
-:datadir: /etc/puppetlabs/puppet/environments/%{::environment}/hiera
+backends:
+  - yaml
+hierarchy:
+  - node/%{::fqdn}
+  - "%{::model_environment}/%{::role}"
+  - role/%{::role}
+  - "%{::model_environment}"
+  - global
+yaml:
+  datadir: /etc/puppetlabs/puppet/environments/%{::environment}/hiera
 {% endhighlight %}
 
 This gives us a copy of the existing Hiera data in each temporary

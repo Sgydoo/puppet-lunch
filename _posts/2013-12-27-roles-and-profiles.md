@@ -160,16 +160,16 @@ To do this, we need to revise our Hiera hierarchy:
 
 {% highlight yaml %}
 ---
-:backends:
+backends:
   - yaml
-:hierarchy:
-    - node/%{::fqdn}
-    - "%{::environment}/%{::role}"
-    - role/%{::role}
-    - environment/%{::environment}
-    - global
-:yaml:
-  :datadir: /etc/puppetlabs/puppet/hiera
+hierarchy:
+  - node/%{::fqdn}
+  - "%{::environment}/%{::role}"
+  - role/%{::role}
+  - environment/%{::environment}
+  - global
+yaml:
+  datadir: /etc/puppetlabs/puppet/hiera
 {% endhighlight %}
 
 This Hiera configuration provides a *huge* amount of flexibility. In
