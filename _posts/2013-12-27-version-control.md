@@ -214,14 +214,14 @@ Configuration is done via a YAML configuration file:
 File: /etc/r10k.yaml
 
 # The location to use for storing cached Git repos
-:cachedir: '/var/cache/r10k'
+cachedir: '/var/cache/r10k'
 # A list of git repositories to create
-:sources:
-# This will clone the git repository and instantiate an environment per
-# branch in /etc/puppetlabs/puppet/environments
-:puppetmaster_np:
-remote: 'ssh://gitolite@coderepo.puppetlunch.com/puppetmaster_np'
-basedir: '/etc/puppetlabs/puppet/environments'
+sources:
+  # This will clone the git repository and instantiate an environment per
+  # branch in /etc/puppetlabs/puppet/environments
+  puppetmaster_np:
+    remote: 'ssh://gitolite@coderepo.puppetlunch.com/puppetmaster_np'
+    basedir: '/etc/puppetlabs/puppet/environments'
 {% endhighlight %}
 
 When communicating with the git server via ssh, r10k uses the current
