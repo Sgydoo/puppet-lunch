@@ -95,11 +95,11 @@ set up a new vCenter user called 'auto_provisioner'. The credentals are
 added to the root user's ~/.fog file, which looks like this:
 
 {% highlight yaml %}
-:default:
-  :vsphere_server: vc5.puppetlunch.com
-  :vsphere_username: DOMAIN\auto_provisioner
-  :vsphere_password: xxxxxxx
-  :vsphere_expected_pubkey_hash: 177bf9cc5a80b7bf74d301ec6a7d51d5...
+default:
+  vsphere_server: vc5.puppetlunch.com
+  vsphere_username: DOMAIN\auto_provisioner
+  vsphere_password: xxxxxxx
+  vsphere_expected_pubkey_hash: 177bf9cc5a80b7bf74d301ec6a7d51d5...
 {% endhighlight %}
 
 Note: We have to specify the Windows domain name in the username field.
