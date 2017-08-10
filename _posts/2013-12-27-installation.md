@@ -35,6 +35,7 @@ The PE servers will be VMware guests running CentOS 6. Here are the details:
 
 <table>
 <tr><th>Hostname</th><th>OS</th><th>CPU Count</th><th>RAM</th><th>Disk Capacity</th></tr>
+<tr>
 <td>puppetmaster-np.puppetlunch.com</td>
 <td>64-bit CentOS 6.4</td>
 <td>4</td>
