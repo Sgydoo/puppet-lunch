@@ -4,8 +4,8 @@ url:          http://puppetlunch.com
 author:
   name:       "S. Young"
   email:      "simon@puppetlunch.com"
-markdown:     rdiscount
+markdown:     kramdown
 permalink:    none
-pygments:     true
+highlighter:  rouge
 paginate:     5
 baseurl:      ""
